@@ -36,7 +36,7 @@ const Map: React.FC<MapProps> = ({ currentLocation, destination, onRouteUpdate, 
     const googleMapsScript = document.createElement('script');
     
     // Replace YOUR_API_KEY with an actual Google Maps API key
-    googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyD_lgZLEcUB3ovi7BIuIWOyV2Tz1WKUWNI&libraries=places&callback=initMap`;
+    googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCuQ4ijj8UEZrge9r0j9Feo5DTb1fb5WXQ&libraries=places&callback=initMap`;
     googleMapsScript.async = true;
     googleMapsScript.defer = true;
     
@@ -105,7 +105,7 @@ const Map: React.FC<MapProps> = ({ currentLocation, destination, onRouteUpdate, 
       }
       delete window.initMap;
     };
-  }, []);
+  }, [currentLocation]);
 
   // Update user location marker
   useEffect(() => {
