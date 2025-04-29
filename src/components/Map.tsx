@@ -35,7 +35,7 @@ const Map: React.FC<MapProps> = ({ currentLocation, destination, onRouteUpdate, 
 
     const googleMapsScript = document.createElement('script');
     
-    // Replace YOUR_API_KEY with an actual Google Maps API key
+    // Using the provided API key
     googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCuQ4ijj8UEZrge9r0j9Feo5DTb1fb5WXQ&libraries=places&callback=initMap`;
     googleMapsScript.async = true;
     googleMapsScript.defer = true;
