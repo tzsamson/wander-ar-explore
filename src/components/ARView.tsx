@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import ARDirectionMarker from './ARDirectionMarker';
 import { calculateArPosition, calculateBearing, calculateDistance, isPointInView } from '../utils/mapUtils';

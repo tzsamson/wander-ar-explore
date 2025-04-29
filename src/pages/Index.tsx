@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import Map from '@/components/Map';

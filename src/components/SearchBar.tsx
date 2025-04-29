@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Search, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,7 +11,7 @@ interface SearchBarProps {
 
 declare global {
   interface Window {
-    google: any;
+    google: typeof google;
   }
 }
 

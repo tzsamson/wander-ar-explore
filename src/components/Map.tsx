@@ -5,13 +5,14 @@ import { useToast } from '@/components/ui/use-toast';
 interface MapProps {
   currentLocation: { lat: number; lng: number } | null;
   destination: { lat: number; lng: number } | null;
-  onRouteUpdate?: (route: any) => void;
+  onRouteUpdate?: (route: google.maps.DirectionsResult) => void;
   className?: string;
 }
 
+// Added this interface to declare the global initMap function
 declare global {
   interface Window {
-    google: any;
+    google: typeof google;
     initMap: () => void;
   }
 }
@@ -26,8 +27,16 @@ const Map: React.FC<MapProps> = ({ currentLocation, destination, onRouteUpdate, 
 
   // Initialize Google Maps
   useEffect(() => {
+    // Check if Google Maps script is already loaded
+    if (window.google && window.google.maps) {
+      window.initMap();
+      return;
+    }
+
     const googleMapsScript = document.createElement('script');
-    googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap`;
+    
+    // Replace YOUR_API_KEY with an actual Google Maps API key
+    googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyD_lgZLEcUB3ovi7BIuIWOyV2Tz1WKUWNI&libraries=places&callback=initMap`;
     googleMapsScript.async = true;
     googleMapsScript.defer = true;
     
@@ -41,14 +50,7 @@ const Map: React.FC<MapProps> = ({ currentLocation, destination, onRouteUpdate, 
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         disableDefaultUI: true,
         zoomControl: true,
-        mapId: "8e0a97af9386fef",
-        styles: [
-          {
-            featureType: "poi",
-            elementType: "labels",
-            stylers: [{ visibility: "off" }],
-          },
-        ],
+        mapId: "8e0a97af9386fef"
       };
       
       const newMap = new google.maps.Map(mapRef.current, mapOptions);
@@ -98,9 +100,8 @@ const Map: React.FC<MapProps> = ({ currentLocation, destination, onRouteUpdate, 
     document.head.appendChild(googleMapsScript);
     
     return () => {
-      document.head.removeChild(googleMapsScript);
-      if (window.google && window.google.maps) {
-        delete window.google.maps;
+      if (window.google && window.google.maps && document.head.contains(googleMapsScript)) {
+        document.head.removeChild(googleMapsScript);
       }
       delete window.initMap;
     };
